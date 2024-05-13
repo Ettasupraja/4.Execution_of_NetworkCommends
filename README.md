@@ -25,8 +25,48 @@ This commands includes
 <BR>
 • Other IP Commands e.g. show ip route etc.
 <BR>
+program:
+ping command:
+
+client:
+```import socket 
+from pythonping import ping 
+s=socket.socket() 
+s.bind(('localhost'8000)) 
+s.listen(5) 
+c,addr=s.accept() 
+while True: 
+    hostname=c.recv(1024).decode() 
+    try: 
+        c.send(str(ping(hostname, verbose=False)).encode()) 
+    except KeyError: 
+        c.send("Not Found".encode())
+        ```
+      server:
+      ```
+import socket 
+s=socket.socket() 
+s.connect(('localhost',8000)) 
+while True: 
+    ip=input("Enter the website you want to ping ") 
+    s.send(ip.encode()) 
+    print(s.recv(1024).decode())
+```
+TraceOut Command:
+```from scapy.all import* 
+target = ["www.google.com"] 
+result, unans = traceroute(target,maxttl=32) 
+print(result,unans)
+```
 
 ## Output
+client
+![Screenshot 2024-05-13 093254](https://github.com/Ettasupraja/4.Execution_of_NetworkCommends/assets/151641352/1dd8acfa-2981-4e90-8667-0c6cdeaac268)
+server
+![Screenshot 2024-05-13 093334](https://github.com/Ettasupraja/4.Execution_of_NetworkCommends/assets/151641352/88060d31-4a45-472b-8e05-57851cafd3d3)
+
+TraceOut Command
+![Screenshot 2024-05-13 093416](https://github.com/Ettasupraja/4.Execution_of_NetworkCommends/assets/151641352/ff6c0206-74cd-4424-b1c2-65939dcff2da)
 
 ## Result
 Thus Execution of Network commands Performed 
